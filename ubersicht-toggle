@@ -1,0 +1,12 @@
+#!/bin/zsh
+# 一键显示/隐藏所有 Übersicht 桌面组件：有任一可见就全部隐藏，否则全部显示
+osascript <<'AS'
+tell application id "tracesOf.Uebersicht"
+  set ids to id of every widget
+  set states to hidden of every widget
+  set target to (states contains false)
+  repeat with i in ids
+    set hidden of widget id (contents of i) to target
+  end repeat
+end tell
+AS
