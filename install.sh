@@ -3,12 +3,11 @@
 set -e
 
 if [ ! -d /Applications/Übersicht.app ]; then
-  if command -v brew >/dev/null; then
-    echo "正在安装 Übersicht…"; brew install --cask ubersicht
-  else
-    echo "没有 Homebrew：请先去官网下载 Übersicht 拖进「应用程序」，再重新粘贴这行命令"
-    open "https://tracesof.net/uebersicht/"; exit 1
-  fi
+  echo "正在下载 Übersicht…"
+  Z=$(mktemp -d)
+  curl -fsSL https://tracesof.net/uebersicht/releases/Uebersicht-1.6.82.app.zip -o "$Z/u.zip"
+  ditto -x -k "$Z/u.zip" /Applications
+  rm -rf "$Z"
 fi
 
 T=$(mktemp -d)
